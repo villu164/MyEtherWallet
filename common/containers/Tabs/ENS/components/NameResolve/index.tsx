@@ -2,22 +2,25 @@ import React from 'react';
 import { NewTabLink } from 'components/ui';
 
 const lookupLink = name => `https://etherscan.io/enslookup?q=${name}`;
-type ChildrenProps = any;
-const MonoTd = ({ children }: ChildrenProps) =>
-  <td className="mono">
-    {children}
-  </td>;
 
-type Props = {
-  domainRequests: any,
-  domainSelector: any
-};
+type ChildrenProps = any;
+
+const MonoTd = ({ children }: ChildrenProps) => (
+  <td className="mono">{children}</td>
+);
+
+interface Props {
+  domainRequests: any;
+  domainSelector: any;
+}
 
 const NameResolve = (props: Props) => {
   const { domainRequests, domainSelector } = props;
 
   const { currentDomain = null } = domainSelector;
-  if (!currentDomain || !domainRequests[currentDomain]) return null;
+  if (!currentDomain || !domainRequests[currentDomain]) {
+    return null;
+  }
   const {
     deedAddress,
     registrationDate,
@@ -32,9 +35,7 @@ const NameResolve = (props: Props) => {
 
   return (
     <section>
-      <h4>
-        {mappedMode}
-      </h4>
+      <h4>{mappedMode}</h4>
       <table className="table table-striped">
         <tbody>
           <tr>
@@ -47,40 +48,26 @@ const NameResolve = (props: Props) => {
             </MonoTd>
           </tr>
           <tr>
-            <td>
-              Labelhash ({currentDomain}):{' '}
-            </td>
-            <MonoTd>
-              {labelHash}
-            </MonoTd>
+            <td>Labelhash ({currentDomain}): </td>
+            <MonoTd>{labelHash}</MonoTd>
           </tr>
           <tr>
-            <td>
-              Namehash ({currentDomain}).eth:{' '}
-            </td>
-            <MonoTd>
-              {nameHash}
-            </MonoTd>
+            <td>Namehash ({currentDomain}).eth: </td>
+            <MonoTd>{nameHash}</MonoTd>
           </tr>
           <tr>
             <td>Owner:</td>
-            <MonoTd>
-              {ownerAddress}
-            </MonoTd>
+            <MonoTd>{ownerAddress}</MonoTd>
           </tr>
           <tr>
             <td>Highest Bidder (Deed Owner): </td>
             <MonoTd>
-              <span>
-                {highestBid}
-              </span>
+              <span>{highestBid}</span>
             </MonoTd>
           </tr>
           <tr>
             <td>Resolved Address: </td>
-            <MonoTd>
-              {resolvedAddress}
-            </MonoTd>
+            <MonoTd>{resolvedAddress}</MonoTd>
           </tr>
         </tbody>
       </table>

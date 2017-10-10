@@ -1,10 +1,9 @@
-// @flow
-import type {
+import {
   EnsAction,
   ResolveDomainSuccess,
   ResolveDomainFailed
 } from 'actions/ens';
-import type { State } from './types';
+import { State } from './types';
 
 const INITIAL_STATE: State = {};
 

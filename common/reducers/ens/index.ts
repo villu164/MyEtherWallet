@@ -1,4 +1,3 @@
-// @flow
 import domainSelector from './domainSelector';
 import domainRequests from './domainRequests';
 

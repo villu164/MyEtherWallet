@@ -1,13 +1,11 @@
-// @flow
-
 /*** Cache ENS address ***/
-export type CacheEnsAddress = {
-  type: 'ENS_CACHE',
+export interface CacheEnsAddress {
+  type: 'ENS_CACHE';
   payload: {
-    ensName: string,
-    address: string
-  }
-};
+    ensName: string;
+    address: string;
+  };
+}
 
 export function cacheEnsAddress(
   ensName: string,
@@ -23,10 +21,10 @@ export function cacheEnsAddress(
 }
 
 /*** Resolve Domain ***/
-export type ResolveDomainRequested = {
-  type: 'ENS_RESOLVE_DOMAIN_REQUESTED',
-  payload: { domain: string }
-};
+export interface ResolveDomainRequested {
+  type: 'ENS_RESOLVE_DOMAIN_REQUESTED';
+  payload: { domain: string };
+}
 
 export const resolveDomainRequested = (
   domain: string
@@ -36,10 +34,10 @@ export const resolveDomainRequested = (
 });
 
 /*** Resolve Domain ***/
-export type ResolveDomainSuccess = {
-  type: 'ENS_RESOLVE_DOMAIN_SUCCESS',
-  payload: { domain: string, domainData: any }
-};
+export interface ResolveDomainSuccess {
+  type: 'ENS_RESOLVE_DOMAIN_SUCCESS';
+  payload: { domain: string; domainData: any };
+}
 
 export const resolveDomainSuccess = (
   domain: string,
@@ -50,10 +48,10 @@ export const resolveDomainSuccess = (
 });
 
 /*** Resolve Domain ***/
-export type ResolveDomainFailed = {
-  type: 'ENS_RESOLVE_DOMAIN_FAILED',
-  payload: { domain: string, error: Error }
-};
+export interface ResolveDomainFailed {
+  type: 'ENS_RESOLVE_DOMAIN_FAILED';
+  payload: { domain: string; error: Error };
+}
 
 export const resolveDomainFailed = (
   domain: string,

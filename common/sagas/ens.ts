@@ -1,16 +1,13 @@
-// @flow
-import type { ResolveDomainRequested } from 'actions/ens';
-import type { Next, Return, Yield } from 'sagas/types';
-import type { INode } from 'libs/nodes/INode';
+import { ResolveDomainRequested } from 'actions/ens';
+import { SagaIterator } from 'redux-saga';
+import { INode } from 'libs/nodes/INode';
 import { getNodeLib } from 'selectors/config';
 import { resolveDomainFailed, resolveDomainSuccess } from 'actions/ens';
 import { resolveDomainRequest } from 'libs/ens';
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { showNotification } from 'actions/notifications';
 
-function* resolveDomain(
-  action: ResolveDomainRequested
-): Generator<Yield, Return, Next> {
+function* resolveDomain(action: ResolveDomainRequested): SagaIterator {
   const { domain } = action.payload;
   const node: INode = yield select(getNodeLib);
   try {
@@ -24,6 +21,6 @@ function* resolveDomain(
   }
 }
 
-export default function* notificationsSaga(): Generator<Yield, Return, Next> {
+export default function* notificationsSaga(): SagaIterator {
   yield takeEvery('ENS_RESOLVE_DOMAIN_REQUESTED', resolveDomain);
 }

@@ -1,16 +1,14 @@
-// @flow
 import React from 'react';
 import HOC from './NameInputHOC';
 
-type NameInputProps = {
-  onChange: SyntheticInputEvent => void,
-  onClick: SyntheticInputEvent => void,
-  isValidDomain: boolean,
-  domainToCheck: string
-};
-class ENSNameInput extends React.Component {
-  props: NameInputProps;
-  render() {
+interface Props {
+  isValidDomain: boolean;
+  domainToCheck: string;
+  onClick(ev: React.FormEvent<HTMLButtonElement>): void;
+  onChange(ev: React.FormEvent<HTMLInputElement>): void;
+}
+class ENSNameInput extends React.Component<Props, {}> {
+  public render() {
     const { onChange, onClick, isValidDomain, domainToCheck } = this.props;
     return (
       <article className="row">
