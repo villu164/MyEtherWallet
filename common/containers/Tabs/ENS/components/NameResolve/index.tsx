@@ -1,6 +1,7 @@
 import React from 'react';
 import { NewTabLink } from 'components/ui';
-
+import { AppState } from 'reducers';
+import { IResolveDomainRequest } from 'libs/ens';
 const lookupLink = name => `https://etherscan.io/enslookup?q=${name}`;
 
 type ChildrenProps = any;
@@ -9,18 +10,20 @@ const MonoTd = ({ children }: ChildrenProps) => (
   <td className="mono">{children}</td>
 );
 
-interface Props {
-  domainRequests: any;
-  domainSelector: any;
-}
+type Props = AppState['ens'];
 
 const NameResolve = (props: Props) => {
   const { domainRequests, domainSelector } = props;
 
   const { currentDomain = null } = domainSelector;
-  if (!currentDomain || !domainRequests[currentDomain]) {
+  if (
+    !currentDomain ||
+    !domainRequests[currentDomain] ||
+    typeof domainRequests[currentDomain].data === 'string'
+  ) {
     return null;
   }
+
   const {
     deedAddress,
     registrationDate,
@@ -31,7 +34,7 @@ const NameResolve = (props: Props) => {
     mappedMode,
     resolvedAddress,
     ownerAddress
-  } = domainRequests[currentDomain].data;
+  } = domainRequests[currentDomain].data as IResolveDomainRequest;
 
   return (
     <section>

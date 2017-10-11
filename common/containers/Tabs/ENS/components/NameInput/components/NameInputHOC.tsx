@@ -9,7 +9,7 @@ interface Props {
   resolveDomainRequested(domain: string): void;
 }
 
-const HOC = PassedComponent =>
+const NameInputHoc = PassedComponent =>
   class HOC extends Component<Props, State> {
     public state = {
       isValidDomain: false,
@@ -39,4 +39,4 @@ const HOC = PassedComponent =>
       return <PassedComponent {...props} />;
     }
   };
-export default HOC;
+export default NameInputHoc;

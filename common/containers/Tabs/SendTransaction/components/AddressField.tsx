@@ -1,4 +1,4 @@
-import { resolveEnsName } from 'actions/ens';
+import { resolveDomainRequested, TResolveDomainRequested } from 'actions/ens';
 import { Identicon } from 'components/ui';
 import { isValidENSAddress, isValidENSorEtherAddress } from 'libs/validators';
 import React from 'react';
@@ -15,7 +15,7 @@ interface PublicProps {
 
 interface Props extends PublicProps {
   ensAddress: string | null;
-  resolveEnsName: typeof resolveEnsName;
+  resolveDomainRequested: TResolveDomainRequested;
 }
 export class AddressField extends React.Component<Props> {
   public render() {
@@ -57,7 +57,7 @@ export class AddressField extends React.Component<Props> {
     }
     // FIXME debounce?
     if (isValidENSAddress(newValue)) {
-      this.props.resolveEnsName(newValue);
+      this.props.resolveDomainRequested(newValue);
     }
     onChange(newValue);
   };
@@ -69,4 +69,6 @@ function mapStateToProps(state: AppState, props: PublicProps) {
   };
 }
 
-export default connect(mapStateToProps, { resolveEnsName })(AddressField);
+export default connect(mapStateToProps, { resolveDomainRequested })(
+  AddressField
+);

@@ -1,19 +1,26 @@
-import { State } from './types';
-
-const INITIAL_STATE: State = {};
-
 import {
   EnsAction,
   ResolveDomainRequested,
   ResolveDomainFailed,
-  ResolveDomainSuccess
+  ResolveDomainSucceeded
 } from 'actions/ens';
+import { IResolveDomainRequest } from 'libs/ens';
+import { TypeKeys } from 'actions/ens/constants';
 
-const REQUEST_STATES = {
-  pending: 'PENDING',
-  success: 'SUCCESS',
-  failed: 'FAILED'
-};
+export interface State {
+  [key: string]: {
+    state: REQUEST_STATES;
+    data: IResolveDomainRequest | string;
+  };
+}
+
+const INITIAL_STATE: State = {};
+
+enum REQUEST_STATES {
+  pending = 'PENDING',
+  success = 'SUCCESS',
+  failed = 'FAILED'
+}
 
 const resolveDomainRequested = (
   state: State,
@@ -27,7 +34,7 @@ const resolveDomainRequested = (
 
 const resolveDomainSuccess = (
   state: State,
-  action: ResolveDomainSuccess
+  action: ResolveDomainSucceeded
 ): State => {
   const { domain, domainData } = action.payload;
   const prevDomain = state[domain];
@@ -55,11 +62,11 @@ const resolveDomainFailed = (
 
 export default (state: State = INITIAL_STATE, action: EnsAction): State => {
   switch (action.type) {
-    case 'ENS_RESOLVE_DOMAIN_REQUESTED':
+    case TypeKeys.ENS_RESOLVE_DOMAIN_REQUESTED:
       return resolveDomainRequested(state, action);
-    case 'ENS_RESOLVE_DOMAIN_SUCCESS':
+    case TypeKeys.ENS_RESOLVE_DOMAIN_SUCCEEDED:
       return resolveDomainSuccess(state, action);
-    case 'ENS_RESOLVE_DOMAIN_FAILED':
+    case TypeKeys.ENS_RESOLVE_DOMAIN_FAILED:
       return resolveDomainFailed(state, action);
     default:
       return state;

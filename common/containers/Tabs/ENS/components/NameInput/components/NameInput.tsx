@@ -1,5 +1,5 @@
 import React from 'react';
-import HOC from './NameInputHOC';
+import NameInputHoc from './NameInputHOC';
 
 interface Props {
   isValidDomain: boolean;
@@ -35,4 +35,4 @@ class ENSNameInput extends React.Component<Props, {}> {
   }
 }
 
-export default HOC(ENSNameInput);
+export default NameInputHoc(ENSNameInput);

@@ -1,15 +1,21 @@
 import {
   EnsAction,
-  ResolveDomainSuccess,
+  ResolveDomainSucceeded,
   ResolveDomainFailed
 } from 'actions/ens';
-import { State } from './types';
+import { TypeKeys } from 'actions/ens/constants';
 
-const INITIAL_STATE: State = {};
+export interface State {
+  currentDomain: null | string;
+}
+
+const INITIAL_STATE: State = {
+  currentDomain: null
+};
 
 const setCurrentDomainName = (
   state: State,
-  action: ResolveDomainSuccess
+  action: ResolveDomainSucceeded
 ): State => {
   const { domain: domainName } = action.payload;
   return { currentDomain: domainName };
@@ -20,9 +26,9 @@ const clearCurrentDomainName = (): State => {
 
 export default (state: State = INITIAL_STATE, action: EnsAction): State => {
   switch (action.type) {
-    case 'ENS_RESOLVE_DOMAIN_SUCCESS':
+    case TypeKeys.ENS_RESOLVE_DOMAIN_SUCCEEDED:
       return setCurrentDomainName(state, action);
-    case 'ENS_RESOLVE_DOMAIN_FAILED':
+    case TypeKeys.ENS_RESOLVE_DOMAIN_FAILED:
       return clearCurrentDomainName();
     default:
       return state;
