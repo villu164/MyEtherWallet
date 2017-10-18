@@ -6,9 +6,43 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const config = require('./config');
 const _ = require('./utils');
 const { CheckerPlugin } = require('awesome-typescript-loader');
+const AutoDllPlugin = require('autodll-webpack-plugin');
+const vendor = require('./vendor');
+console.log(vendor);
+//HELP_2a_Title
+console.log(_.cwd('./common/translations/index.tsx'));
 module.exports = {
+  context: _.cwd('./'),
   entry: {
-    client: './common/index.tsx'
+    client: './common/index.tsx',
+    vendor,
+    translations: [
+      './common/vendor/ledger-eth.js',
+      './common/vendor/ledger3.js',
+      './common/vendor/trezor-connect.js',
+      './common/vendor/u2f-api.js',
+      './common/translations/lang/de.json',
+      './common/translations/lang/el.json',
+      './common/translations/lang/en.json',
+      './common/translations/lang/es.json',
+      './common/translations/lang/fi.json',
+      './common/translations/lang/fr.json',
+      './common/translations/lang/ht.json',
+      './common/translations/lang/hu.json',
+      './common/translations/lang/id.json',
+      './common/translations/lang/it.json',
+      './common/translations/lang/ja.json',
+      './common/translations/lang/nl.json',
+      './common/translations/lang/no.json',
+      './common/translations/lang/pl.json',
+      './common/translations/lang/pt.json',
+      './common/translations/lang/ru.json',
+      './common/translations/lang/ko.json',
+      './common/translations/lang/tr.json',
+      './common/translations/lang/vi.json',
+      './common/translations/lang/zhcn.json',
+      './common/translations/lang/zhtw.json'
+    ]
   },
   output: {
     path: _.outputPath,
@@ -67,9 +101,47 @@ module.exports = {
       'process.env.BUILD_GH_PAGES': JSON.stringify(!!process.env.BUILD_GH_PAGES)
     }),
     new HtmlWebpackPlugin({
+      inject: true,
       title: config.title,
       template: path.resolve(__dirname, '../common/index.html'),
       filename: _.outputIndexPath
+    }),
+    new AutoDllPlugin({
+      context: _.cwd('./'),
+      inject: true, // will inject the DLL bundle to index.html
+      debug: true,
+      filename: '[name]_[hash].js',
+      path: './dll',
+      entry: {
+        vendor,
+        translations: [
+          './common/vendor/ledger-eth.js',
+          './common/vendor/ledger3.js',
+          './common/vendor/trezor-connect.js',
+          './common/vendor/u2f-api.js',
+          './common/translations/lang/de.json',
+          './common/translations/lang/el.json',
+          './common/translations/lang/en.json',
+          './common/translations/lang/es.json',
+          './common/translations/lang/fi.json',
+          './common/translations/lang/fr.json',
+          './common/translations/lang/ht.json',
+          './common/translations/lang/hu.json',
+          './common/translations/lang/id.json',
+          './common/translations/lang/it.json',
+          './common/translations/lang/ja.json',
+          './common/translations/lang/nl.json',
+          './common/translations/lang/no.json',
+          './common/translations/lang/pl.json',
+          './common/translations/lang/pt.json',
+          './common/translations/lang/ru.json',
+          './common/translations/lang/ko.json',
+          './common/translations/lang/tr.json',
+          './common/translations/lang/vi.json',
+          './common/translations/lang/zhcn.json',
+          './common/translations/lang/zhtw.json'
+        ]
+      }
     }),
     new webpack.LoaderOptionsPlugin(_.loadersOptions()),
     new CopyWebpackPlugin([
