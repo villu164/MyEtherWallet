@@ -5,11 +5,12 @@ import {
   buildOriginKind
 } from 'reducers/swap/helpers';
 import * as swapActions from 'actions/swap';
+import { TypeKeys } from 'actions/swap/constants';
 import without from 'lodash/without';
 
 describe('swap reducer', () => {
   it('should return the initial state', () => {
-    expect(swap(undefined, {})).toEqual(INITIAL_STATE);
+    expect(swap(undefined, {} as any)).toEqual(INITIAL_STATE);
   });
 
   it('should handle SWAP_ORIGIN_KIND', () => {
@@ -87,7 +88,7 @@ describe('swap reducer', () => {
       ETHREP: 10
     };
     expect(
-      swap(undefined, swapActions.loadBityRatesSucceededSwap(bityRates))
+      swap(undefined, swapActions.loadBityRatesSucceededSwap(bityRates as any))
     ).toEqual({
       ...INITIAL_STATE,
       isFetchingRates: false,
@@ -134,14 +135,18 @@ describe('swap reducer', () => {
   });
 
   it('should handle SWAP_ORDER_CREATE_REQUESTED', () => {
-    expect(swap(undefined, { type: 'SWAP_ORDER_CREATE_REQUESTED' })).toEqual({
+    expect(
+      swap(undefined, { type: TypeKeys.SWAP_ORDER_CREATE_REQUESTED } as any)
+    ).toEqual({
       ...INITIAL_STATE,
       isPostingOrder: true
     });
   });
 
   it('should handle SWAP_ORDER_CREATE_FAILED', () => {
-    expect(swap(undefined, { type: 'SWAP_ORDER_CREATE_FAILED' })).toEqual({
+    expect(
+      swap(undefined, { type: TypeKeys.SWAP_ORDER_CREATE_FAILED as any })
+    ).toEqual({
       ...INITIAL_STATE,
       isPostingOrder: false
     });
@@ -166,7 +171,7 @@ describe('swap reducer', () => {
 
   it('should handle SWAP_LOAD_BITY_RATES_REQUESTED', () => {
     expect(
-      swap(undefined, { type: 'SWAP_LOAD_BITY_RATES_REQUESTED' })
+      swap(undefined, { type: TypeKeys.SWAP_LOAD_BITY_RATES_REQUESTED as any })
     ).toEqual({
       ...INITIAL_STATE,
       isFetchingRates: true
@@ -174,7 +179,9 @@ describe('swap reducer', () => {
   });
 
   it('should handle SWAP_STOP_LOAD_BITY_RATES', () => {
-    expect(swap(undefined, { type: 'SWAP_STOP_LOAD_BITY_RATES' })).toEqual({
+    expect(
+      swap(undefined, { type: TypeKeys.SWAP_STOP_LOAD_BITY_RATES as any })
+    ).toEqual({
       ...INITIAL_STATE,
       isFetchingRates: false
     });

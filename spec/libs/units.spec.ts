@@ -1,9 +1,22 @@
 import Big from 'bignumber.js';
-import { toWei, toUnit } from '../../common/libs/units';
+import { toWei, toUnit, UnitKey } from '../../common/libs/units';
+
+interface IToWei {
+  value: string;
+  unit: UnitKey;
+  wei: string;
+}
+
+interface IToUnit {
+  fromUnit: UnitKey;
+  toUnit: UnitKey;
+  output: string;
+  value: string;
+}
 
 describe('Units', () => {
   describe('toWei', () => {
-    const conversions = [
+    const conversions: IToWei[] = [
       {
         value: '0.001371',
         unit: 'ether',
@@ -25,7 +38,7 @@ describe('Units', () => {
   });
 
   describe('toUnit', () => {
-    const conversions = [
+    const conversions: IToUnit[] = [
       {
         value: '.41849',
         fromUnit: 'ether',

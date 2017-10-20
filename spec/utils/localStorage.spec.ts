@@ -6,7 +6,7 @@ import {
   REDUX_STATE
 } from '../../common/utils/localStorage';
 
-window.localStorage = new LocalStorageMock();
+(window as any).localStorage = new LocalStorageMock();
 
 describe('saveState', () => {
   it('should serialize and persist state to local storage under key: "REDUX_STATE"', () => {
@@ -14,7 +14,9 @@ describe('saveState', () => {
       foo: 'bar'
     };
     saveState(persistMe);
-    expect(JSON.parse(localStorage.getItem(REDUX_STATE))).toEqual(persistMe);
+    expect(localStorage.getItem(REDUX_STATE)).toEqual(
+      JSON.stringify(persistMe)
+    );
   });
 });
 

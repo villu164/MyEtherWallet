@@ -21,8 +21,14 @@ describe('toFixedIfLarger', () => {
   });
 });
 
+interface IPair {
+  input: BigNumber.BigNumber;
+  output: string;
+  digits?: number;
+}
+
 describe('formatNumber', () => {
-  const pairs = [
+  const pairs: IPair[] = [
     {
       input: new Big('0.0127491'),
       output: '0.013'

@@ -3,7 +3,7 @@ import * as generateWalletActions from 'actions/generateWallet';
 
 describe('generateWallet reducer', () => {
   it('should return the initial state', () => {
-    expect(generateWallet(undefined, {})).toEqual(INITIAL_STATE);
+    expect(generateWallet(undefined, {} as any)).toEqual(INITIAL_STATE);
   });
 
   it('should handle GENERATE_WALLET_CONTINUE_TO_PAPER', () => {

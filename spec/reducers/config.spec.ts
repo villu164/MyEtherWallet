@@ -4,7 +4,7 @@ import { NODES } from 'config/data';
 
 describe('config reducer', () => {
   it('should return the initial state', () => {
-    expect(config(undefined, {})).toEqual(INITIAL_STATE);
+    expect(config(undefined, {} as any)).toEqual(INITIAL_STATE);
   });
 
   it('should handle CONFIG_LANGUAGE_CHANGE', () => {
@@ -18,7 +18,7 @@ describe('config reducer', () => {
   it('should handle CONFIG_NODE_CHANGE', () => {
     const node = NODES[0];
 
-    expect(config(undefined, configActions.changeNode(node))).toEqual({
+    expect(config(undefined, configActions.changeNode(node as any))).toEqual({
       ...INITIAL_STATE,
       nodeSelection: node
     });
