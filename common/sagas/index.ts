@@ -8,6 +8,7 @@ import {
 } from './swap/orders';
 import { getBityRatesSaga } from './swap/rates';
 import wallet from './wallet';
+import offline from './offline';
 
 export default {
   bityTimeRemaining,
@@ -17,5 +18,6 @@ export default {
   getBityRatesSaga,
   notifications,
   wallet,
+  offline,
   deterministicWallets
 };
