@@ -128,8 +128,7 @@ const initialState: State = {
 export class SendTransaction extends React.Component<Props, State> {
   public state: State = initialState;
 
-  public componentDidMount() {
-    this.props.pollOfflineStatus();
+  public handleQueryPresents() {
     const queryPresets = pickBy(this.parseQuery());
     if (Object.keys(queryPresets).length) {
       this.setState(state => {
@@ -140,6 +139,11 @@ export class SendTransaction extends React.Component<Props, State> {
         };
       });
     }
+  }
+
+  public componentDidMount() {
+    this.props.pollOfflineStatus();
+    this.handleQueryPresents();
   }
 
   public haveFieldsChanged(prevState) {
@@ -297,14 +301,14 @@ export class SendTransaction extends React.Component<Props, State> {
                     onChange={readOnly ? void 0 : this.onGasChange}
                   />
                   {(offline || forceOffline) && (
-                      <div>
-                        <NonceField
-                          value={nonce}
-                          onChange={this.onNonceChange}
-                          placeholder={'0'}
-                        />
-                      </div>
-                    )}
+                    <div>
+                      <NonceField
+                        value={nonce}
+                        onChange={this.onNonceChange}
+                        placeholder={'0'}
+                      />
+                    </div>
+                  )}
                   {unit === 'ether' && (
                     <DataField
                       value={data}
