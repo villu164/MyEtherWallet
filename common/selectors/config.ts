@@ -7,6 +7,11 @@ import {
 } from 'config/data';
 import { INode } from 'libs/nodes/INode';
 import { AppState } from 'reducers';
+import { State as ConfigState } from 'reducers/config';
+
+export function getConfig(state: AppState): ConfigState {
+  return state.config;
+}
 
 export function getNode(state: AppState): string {
   return state.config.nodeSelection;

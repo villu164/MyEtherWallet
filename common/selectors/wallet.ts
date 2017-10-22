@@ -4,9 +4,14 @@ import { BroadcastTransactionStatus } from 'libs/transaction';
 import { IWallet } from 'libs/wallet';
 import { AppState } from 'reducers';
 import { getNetworkConfig } from 'selectors/config';
+import { Ether } from 'libs/units';
 
 export function getWalletInst(state: AppState): IWallet | null | undefined {
   return state.wallet.inst;
+}
+
+export function getWalletBalance(state: AppState): Ether | null {
+  return state.wallet.balance;
 }
 
 export interface TokenBalance {
