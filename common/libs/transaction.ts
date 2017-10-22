@@ -279,5 +279,5 @@ export function getBalanceMinusGasCosts(
 ): Ether {
   const weiGasCosts = gasPrice.amount.times(gasLimit);
   const weiBalanceMinusGasCosts = balance.amount.minus(weiGasCosts);
-  return new Ether(weiBalanceMinusGasCosts);
+  return new Wei(weiBalanceMinusGasCosts).toEther();
 }
