@@ -29,6 +29,7 @@ import { apply, call, fork, put, select, takeEvery } from 'redux-saga/effects';
 import { getNetworkConfig, getNodeLib } from 'selectors/config';
 import { getTokens, getWalletInst } from 'selectors/wallet';
 import translate from 'translations';
+import { TypeKeys as WalletTypeKeys } from 'actions/wallet/constants';
 
 function* updateAccountBalance(): SagaIterator {
   try {
@@ -72,7 +73,6 @@ function* updateTokenBalances(): SagaIterator {
       )
     );
   } catch (error) {
-    console.log(error);
     yield put({ type: 'UPDATE_TOKEN_BALANCE_FAILED', error });
   }
 }
@@ -182,11 +182,12 @@ export default function* walletSaga(): SagaIterator {
   // useful for development
   yield call(updateBalances);
   yield [
-    takeEvery('WALLET_UNLOCK_PRIVATE_KEY', unlockPrivateKey),
-    takeEvery('WALLET_UNLOCK_KEYSTORE', unlockKeystore),
-    takeEvery('WALLET_UNLOCK_MNEMONIC', unlockMnemonic),
-    takeEvery('WALLET_SET', updateBalances),
+    takeEvery(WalletTypeKeys.WALLET_UNLOCK_PRIVATE_KEY, unlockPrivateKey),
+    takeEvery(WalletTypeKeys.WALLET_UNLOCK_KEYSTORE, unlockKeystore),
+    takeEvery(WalletTypeKeys.WALLET_UNLOCK_MNEMONIC, unlockMnemonic),
+    takeEvery(WalletTypeKeys.WALLET_SET, updateBalances),
+    takeEvery(WalletTypeKeys.WALLET_GET_BALANCES, updateBalances),
     takeEvery('CUSTOM_TOKEN_ADD', updateTokenBalances),
-    takeEvery('WALLET_BROADCAST_TX_REQUESTED', broadcastTx)
+    takeEvery(WalletTypeKeys.WALLET_BROADCAST_TX_REQUESTED, broadcastTx)
   ];
 }
